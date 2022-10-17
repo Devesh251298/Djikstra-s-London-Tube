@@ -1,3 +1,7 @@
+import json
+import sys
+from components import Station, Line, Connection
+
 class TubeMap:
     """
     Task 1: Complete the definition of the TubeMap class by:
@@ -10,34 +14,42 @@ class TubeMap:
     - lines: a dictionary that indexes Line instances by their id (key=id, value=Line)
     - connections: a list of Connection instances for the TubeMap (list of Connections)
     """
-
     def __init__(self):
         self.stations = {}  # key: id (str), value: Station instance
         self.lines = {}  # key: id (str), value: Line instance
         self.connections = []  # list of Connection instances
 
     def import_from_json(self, filepath):
-        """ Import tube map information from a JSON file.
+        with open(filepath) as jsonfile:
+            data = json.load(jsonfile)
         
-        During the import process, the `stations`, `lines` and `connections` attributes should be updated.
+        ## LINES
+        for i in range(len(data["lines"])):
+            id = data["lines"][i]['line']
+            name = data["lines"][i]['name']
+            self.lines[id] = Line(id = id, name = name)
+        
+        ## STATIONS
+        for i in range(len(data["stations"])):
+            id = data["stations"][i]['id']
+            name = data["stations"][i]['name']
+            zone = data["stations"][i]['zone']
+            if id not in self.stations.keys():
+                self.stations[id] = Station(id = id, name = name, zones = set([int(float(zone))]))
+            else : 
+                self.stations.zones.add(zone)
 
-        You can use the `json` python package to easily load the JSON file at `filepath`
 
-        Note: when the indicated zone is not an integer (for instance: "2.5"), 
-            it means that the station belongs to two zones. 
-            For example, if the zone of a station is "2.5", 
-            it means that the station is in both zones 2 and 3.
-
-        Args:
-            filepath (str) : relative or absolute path to the JSON file 
-                containing all the information about the tube map graph to 
-                import. If filepath is invalid, no attribute should be updated, 
-                and no error should be raised.
-
-        Returns:
-            None
-        """
-        return # TODO: Complete this method
+        
+        ## CONNECTIONS
+        for i in range(len(data["connections"])):
+            station_1 = data["connections"][i]['station1']
+            station_2 = data["connections"][i]['station2']
+            time = data["connections"][i]['time']
+            line = data["connections"][i]['line']
+            self.connections.append(Connection(stations = {self.stations[station_1], self.stations[station_2]},
+                                               line = self.lines[line], time = int(time)))
+        return 
 
 
 def test_import():

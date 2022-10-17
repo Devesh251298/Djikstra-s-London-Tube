@@ -1,3 +1,8 @@
+import sys
+sys.path.append("../tube")
+sys.path.append("../")
+from tube import *
+
 class NeighbourGraphBuilder:
     """
     Task 2: Complete the definition of the NeighbourGraphBuilder class by:
@@ -8,6 +13,27 @@ class NeighbourGraphBuilder:
         pass
 
     def build(self, tubemap):
+        graph = {}
+        for i in range(len(tubemap.connections)):
+            stations = [station.id for station in 
+                        tubemap.connections[i].stations]
+            if stations[0] not in graph.keys():
+                graph[stations[0]] = {stations[1]:[tubemap.connections[i]]}
+            else:
+                if stations[1] not in graph[stations[0]].keys():
+                    graph[stations[0]][stations[1]] = [tubemap.connections[i]]
+                else : 
+                    graph[stations[0]][stations[1]].append(tubemap.connections[i])
+
+            if stations[1] not in graph.keys():
+                graph[stations[1]] = {stations[0]:[tubemap.connections[i]]}
+            else:
+                if stations[0] not in graph[stations[1]].keys():
+                    graph[stations[1]][stations[0]] = [tubemap.connections[i]]
+                else : 
+                    graph[stations[1]][stations[0]].append(tubemap.connections[i])
+        return dict(graph)
+
         """ Builds a graph encoding neighbouring connections between stations.
 
         ----------------------------------------------
@@ -69,13 +95,12 @@ class NeighbourGraphBuilder:
                 If the input data (tubemap) is invalid, 
                 the method should return an empty dict.
         """
-        return dict()  # TODO: Complete this method
 
 
 def test_graph():
-    from tube.map import TubeMap
+
     tubemap = TubeMap()
-    tubemap.import_from_json("data/london.json")
+    tubemap.import_from_json("../data/london.json")
 
     graph_builder = NeighbourGraphBuilder()
     graph = graph_builder.build(tubemap)
