@@ -5,11 +5,7 @@ from network import *
 from tube import *
 
 def get_tubemap():
-    """ Return an initialised TubeMap object
 
-    Returns:
-        tube.map.TubeMap: Initialised TubeMap object
-    """
     tubemap = TubeMap()
     tubemap.import_from_json("data/london.json")
     return tubemap
@@ -18,12 +14,19 @@ def main():
     tubemap = get_tubemap()
     
     path_finder = PathFinder(tubemap)
+    # print(tubemap.stations.keys())
 
-    # Examples usage of path_finder
-    stations = path_finder.get_shortest_path('Stockwell', 'Ealing Broadway')
-    station_names = [station.name for station in stations]
-    print(station_names)
+    for i in tubemap.stations.keys():
+        for j in tubemap.stations.keys():
+            print(i,j,tubemap.stations[i].name, tubemap.stations[j].name)
+
+            stations = path_finder.get_shortest_path(tubemap.stations[i].name, tubemap.stations[j].name)
+            station_names = [station.name for station in stations]
+            print(station_names)
+
+    # stations = path_finder.get_shortest_path("South Kensington", "South Kensington")
+    # station_names = [station.name for station in stations]
+    # print(station_names)
 
 if __name__ == '__main__':
     main()
-
