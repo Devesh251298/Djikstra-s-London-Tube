@@ -42,25 +42,7 @@ class PathFinder:
         stations.append(start_station)
         return stations
 
-    def get_shortest_path(self, start_station_name, end_station_name):
-        start_id = self.name_map[start_station_name]
-        end_id = self.name_map[end_station_name]
-
-        if start_id not in self.graph.keys() or end_id not in self.graph.keys():
-            return None
-
-        if start_id == end_id:
-            for i in self.graph[start_id].keys():
-                time = float("inf")
-                nearest = []
-                for j in self.graph[start_id][i]:
-                    if j.time < time:
-                        time = j.time
-                        nearest = j
-            stations = self.get_stations([nearest], start_station_name)
-            stations.append(stations[0])
-            return stations
-
+    def djisktras(self, start_id, end_id, graph):
         scores = {start_id : 0}
         sorted_list = [start_id]
         end_detached = False
@@ -105,14 +87,34 @@ class PathFinder:
                 end_detached = True
                 shortest_path = scores[end_id]
 
+        return prev_connection, previous, shortest_path
 
+    def get_shortest_path(self, start_station_name, end_station_name):
+        start_id = self.name_map[start_station_name]
+        end_id = self.name_map[end_station_name]
+
+        if start_id not in self.graph.keys() or end_id not in self.graph.keys():
+            return None
+
+        if start_id == end_id:
+            for i in self.graph[start_id].keys():
+                time = float("inf")
+                nearest = []
+                for j in self.graph[start_id][i]:
+                    if j.time < time:
+                        time = j.time
+                        nearest = j
+            stations = self.get_stations([nearest], start_station_name)
+            stations.append(stations[0])
+            return stations
+
+        prev_connection, previous, shortest_path = self.djisktras(start_id, end_id, self.graph) 
         id = end_id
         connections = []
+        
         while id!=start_id:
             connections.append(prev_connection[id])
             id = previous[id]
-
-        print(shortest_path)
 
         return self.get_stations(connections, start_station_name) 
 
