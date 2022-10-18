@@ -34,8 +34,14 @@ class TubeMap:
             id = data["stations"][i]['id']
             name = data["stations"][i]['name']
             zone = data["stations"][i]['zone']
+            if zone[-2:] == ".5":
+                zones = []
+                val = int(float(zone))
+                zone = {val,val+1}
+            else:
+                zone = {int(zone)}
             if id not in self.stations.keys():
-                self.stations[id] = Station(id = id, name = name, zones = set([int(float(zone))]))
+                self.stations[id] = Station(id = id, name = name, zones = zone)
             else : 
                 self.stations.zones.add(zone)
 
