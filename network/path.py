@@ -56,6 +56,7 @@ class PathFinder:
         while not end_detached:
             sorted_list.pop(0)
             completed.add(start_point)
+            # print(start_point, sorted_list)
             for i in self.graph[start_point].keys():
                 if i in completed:
                     continue
@@ -75,10 +76,13 @@ class PathFinder:
                     prev_connection[i] = prev
                     scores[i] = val
                 else:
+                    val = scores[start_point]+time
                     if val < scores[i]:
                         scores[i] = val
                         previous[i] = start_point
                         prev_connection[i] = prev
+                        sorted_list.remove(i)
+                        sorted_list.insert(self.search_list(sorted_list, val, scores), i)
 
                 if i not in sorted_list:
                     sorted_list.insert(self.search_list(sorted_list, val, scores), i)
@@ -111,7 +115,7 @@ class PathFinder:
         prev_connection, previous, shortest_path = self.djisktras(start_id, end_id, self.graph) 
         id = end_id
         connections = []
-        
+        print(shortest_path)
         while id!=start_id:
             connections.append(prev_connection[id])
             id = previous[id]

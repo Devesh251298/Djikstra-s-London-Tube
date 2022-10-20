@@ -16,16 +16,16 @@ def main():
     path_finder = PathFinder(tubemap)
     # print(tubemap.stations.keys())
 
-    for i in tubemap.stations.keys():
-        for j in tubemap.stations.keys():
-            print("From : ",tubemap.stations[i].name,", To : ", tubemap.stations[j].name)
-            stations = path_finder.get_shortest_path(tubemap.stations[i].name, tubemap.stations[j].name)
-            station_names = [station.name for station in stations]
-            print(station_names)
+    # for i in tubemap.stations.keys():
+    #     for j in tubemap.stations.keys():
+    #         print("From : ",tubemap.stations[i].name,", To : ", tubemap.stations[j].name)
+    #         stations = path_finder.get_shortest_path(tubemap.stations[i].name, tubemap.stations[j].name)
+    #         station_names = [station.name for station in stations]
+    #         print(station_names)
 
-    # stations = path_finder.get_shortest_path("South Kensington", "South Kensington")
-    # station_names = [station.name for station in stations]
-    # print(station_names)
+    stations = path_finder.get_shortest_path("Covent Garden", "South Kensington")
+    station_names = [station.name for station in stations]
+    print(station_names)
 
 if __name__ == '__main__':
     main()
