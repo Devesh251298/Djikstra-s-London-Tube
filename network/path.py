@@ -7,7 +7,6 @@ from tube import *
 class PathFinder:
 
     def __init__(self, tubemap):
-
         self.tubemap = tubemap
         graph_builder = NeighbourGraphBuilder()
         self.graph = graph_builder.build(self.tubemap)
@@ -51,7 +50,6 @@ class PathFinder:
         previous = {}
         prev_connection = {}
         completed =  set()
-
 
         while not end_detached:
             sorted_list.pop(0)

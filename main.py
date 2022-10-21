@@ -23,7 +23,7 @@ def main():
     #         station_names = [station.name for station in stations]
     #         print(station_names)
 
-    stations = path_finder.get_shortest_path("Covent Garden", "South Kensington")
+    stations = path_finder.get_shortest_path("Angel", "South Kensington")
     station_names = [station.name for station in stations]
     print(station_names)
 
