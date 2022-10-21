@@ -113,7 +113,6 @@ class PathFinder:
         prev_connection, previous, shortest_path = self.djisktras(start_id, end_id, self.graph) 
         id = end_id
         connections = []
-        print(shortest_path)
         while id!=start_id:
             connections.append(prev_connection[id])
             id = previous[id]
