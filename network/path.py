@@ -1,8 +1,6 @@
-from graph import NeighbourGraphBuilder
-import sys
-sys.path.append("../tube")
-sys.path.append("../")
-from tube import *
+from network.graph import NeighbourGraphBuilder
+from tube.map import TubeMap
+from tube.components import Station, Line, Connection
 
 class PathFinder:
 

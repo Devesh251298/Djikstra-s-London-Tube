@@ -1,8 +1,3 @@
-import sys
-sys.path.append("../tube")
-sys.path.append("../")
-from tube import *
-
 class NeighbourGraphBuilder:
     """
     Task 2: Complete the definition of the NeighbourGraphBuilder class by:
