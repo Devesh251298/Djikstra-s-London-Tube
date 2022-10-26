@@ -90,11 +90,11 @@ class PathFinder:
         return prev_connection, previous, shortest_path
 
     def get_shortest_path(self, start_station_name, end_station_name):
+        if start_station_name not in self.name_map.keys() or end_station_name not in self.name_map.keys():
+            return []
+
         start_id = self.name_map[start_station_name]
         end_id = self.name_map[end_station_name]
-
-        if start_id not in self.graph.keys() or end_id not in self.graph.keys():
-            return None
 
         if start_id == end_id:
             for i in self.graph[start_id].keys():
@@ -106,7 +106,7 @@ class PathFinder:
                         nearest = j
             stations = self.get_stations([nearest], start_station_name)
             stations.append(stations[0])
-            return stations
+            return [stations[0]]
 
         prev_connection, previous, shortest_path = self.djisktras(start_id, end_id, self.graph) 
         id = end_id
