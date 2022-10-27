@@ -43,8 +43,6 @@ class TubeMap:
                 self.stations[id] = Station(id = id, name = name, zones = zone)
             else : 
                 self.stations.zones.add(zone)
-
-
         
         ## CONNECTIONS
         for i in range(len(data["connections"])):

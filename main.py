@@ -22,7 +22,7 @@ def main():
     #         print(station_names)
     # print(count)
 
-    stations = path_finder.get_shortest_path("Stockwell", "Ealig Broadway")
+    stations = path_finder.get_shortest_path("Stockwell", "Stockwell")
     station_names = [station.name for station in stations]
     print(station_names)
 
