@@ -25,11 +25,8 @@ class NeighbourGraphBuilder:
                         If the input data (tubemap) is invalid,
                         the method should return an empty dict.
         """
-        print(isinstance(tubemap, TubeMap))
         if not isinstance(tubemap, TubeMap):
-            print("fkwejbnf")
             return {}
-        print("efj")
         graph = {}
         for i in range(len(tubemap.connections)):
             stations = [station.id for station in
