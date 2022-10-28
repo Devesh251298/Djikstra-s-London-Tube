@@ -24,21 +24,42 @@ class TubeMap:
         
         ## LINES
         for i in range(len(data["lines"])):
-            id = data["lines"][i]['line']
-            name = data["lines"][i]['name']
+            try : 
+                id = str(data["lines"][i]['line'])
+            except : 
+                print("Id must be a String")
+            
+            try : 
+                name = str(data["lines"][i]['name'])
+            except : 
+                print("Name must be a String")
+
             self.lines[id] = Line(id = id, name = name)
         
         ## STATIONS
         for i in range(len(data["stations"])):
-            id = data["stations"][i]['id']
-            name = data["stations"][i]['name']
-            zone = data["stations"][i]['zone']
+            try :
+                id = str(data["stations"][i]['id'])
+            except:
+                print("Id must be a String")
+
+            try : 
+                name = str(data["stations"][i]['name'])
+            except:
+                print("Name must be a String")
+
+            try :   
+                zone = str(data["stations"][i]['zone'])
+            except:
+                print("Zone must be a String")
+
             if zone[-2:] == ".5":
                 zones = []
                 val = int(float(zone))
                 zone = {val,val+1}
             else:
                 zone = {int(zone)}
+
             if id not in self.stations.keys():
                 self.stations[id] = Station(id = id, name = name, zones = zone)
             else : 
@@ -46,12 +67,28 @@ class TubeMap:
         
         ## CONNECTIONS
         for i in range(len(data["connections"])):
-            station_1 = data["connections"][i]['station1']
-            station_2 = data["connections"][i]['station2']
-            time = data["connections"][i]['time']
-            line = data["connections"][i]['line']
+            try :
+                station_1 = data["connections"][i]['station1']
+            except:
+                print("Station id must be a String")
+
+            try :
+                station_2 = data["connections"][i]['station2']
+            except:
+                print("Station id must be a String")
+            
+            try: 
+                time = int(data["connections"][i]['time'])
+            except :
+                print("Time must be an Int")
+                
+            try : 
+                line = str(data["connections"][i]['line'])
+            except :
+                print("Line must be a String")
+
             self.connections.append(Connection(stations = {self.stations[station_1], self.stations[station_2]},
-                                               line = self.lines[line], time = int(time)))
+                                               line = self.lines[line], time = time))
         return 
 
 
