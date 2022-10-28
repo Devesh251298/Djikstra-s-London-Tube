@@ -1,3 +1,5 @@
+from tube.map import TubeMap
+
 class NeighbourGraphBuilder:
     """
     Task 2: Complete the definition of the NeighbourGraphBuilder class by:
@@ -23,6 +25,11 @@ class NeighbourGraphBuilder:
                         If the input data (tubemap) is invalid,
                         the method should return an empty dict.
         """
+        print(isinstance(tubemap, TubeMap))
+        if not isinstance(tubemap, TubeMap):
+            print("fkwejbnf")
+            return {}
+        print("efj")
         graph = {}
         for i in range(len(tubemap.connections)):
             stations = [station.id for station in
@@ -53,7 +60,7 @@ def test_graph():
     tubemap.import_from_json("../data/london.json")
 
     graph_builder = NeighbourGraphBuilder()
-    graph = graph_builder.build(tubemap)
+    graph = graph_builder.build([1])
 
     print(graph)
 

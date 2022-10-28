@@ -19,9 +19,12 @@ class TubeMap:
         self.connections = []  # list of Connection instances
 
     def import_from_json(self, filepath):
-        with open(filepath) as jsonfile:
-            data = json.load(jsonfile)
-        
+        try :
+            with open(filepath) as jsonfile:
+                data = json.load(jsonfile)
+        except:
+            return None
+
         ## LINES
         for i in range(len(data["lines"])):
             try : 
