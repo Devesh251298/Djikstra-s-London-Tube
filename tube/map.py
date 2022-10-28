@@ -27,12 +27,12 @@ class TubeMap:
             try : 
                 id = str(data["lines"][i]['line'])
             except : 
-                print("Id must be a String")
+                raise TypeError("Line Id must be a String!")
             
             try : 
                 name = str(data["lines"][i]['name'])
             except : 
-                print("Name must be a String")
+                raise TypeError("Line name must be a String!")
 
             self.lines[id] = Line(id = id, name = name)
         
@@ -41,17 +41,17 @@ class TubeMap:
             try :
                 id = str(data["stations"][i]['id'])
             except:
-                print("Id must be a String")
+                raise TypeError("StationId must be a String!")
 
             try : 
                 name = str(data["stations"][i]['name'])
             except:
-                print("Name must be a String")
+                raise TypeError("Station name must be a String!")
 
             try :   
                 zone = str(data["stations"][i]['zone'])
             except:
-                print("Zone must be a String")
+                raise TypeError("Zone must be a String!")
 
             if zone[-2:] == ".5":
                 zones = []
@@ -70,22 +70,22 @@ class TubeMap:
             try :
                 station_1 = data["connections"][i]['station1']
             except:
-                print("Station id must be a String")
+                raise TypeError("StationId must be a String!")
 
             try :
                 station_2 = data["connections"][i]['station2']
             except:
-                print("Station id must be a String")
+                raise TypeError("StationId must be a String!")
             
             try: 
                 time = int(data["connections"][i]['time'])
             except :
-                print("Time must be an Int")
-                
+                raise TypeError("Time must be an Integer!")
+
             try : 
                 line = str(data["connections"][i]['line'])
             except :
-                print("Line must be a String")
+                raise TypeError("Line must be a String!")
 
             self.connections.append(Connection(stations = {self.stations[station_1], self.stations[station_2]},
                                                line = self.lines[line], time = time))
